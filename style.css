@@ -11,10 +11,31 @@ body{
     min-height: 100vh;
     min-width: 100vw;
     /* background: linear-gradient(to top right, rgba(207, 48, 48, 0.808), rgba(228, 155, 20, 0.829)); */
+    /* background: url(./images/marten-bjork-n_IKQDCyrG0-unsplash.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; */
+}
+.body1{
+    background: url(./images/chris-andrawes-kWXini0GbxU-unsplash.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.body2{
+    background: url(./images/fernando-alvarez-rodriguez-M7GddPqJowg-unsplash.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.body3{
     background: url(./images/marten-bjork-n_IKQDCyrG0-unsplash.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+input{
+    background: transparent;
 }
 .container{
     display: flex;
@@ -66,7 +87,7 @@ body{
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background: white;
+    background: rgba(255, 255, 255, 0.733);
     /* min-height: 80vh; */
     height: 90vh;
     margin: 20px 0px 20px 0px;
@@ -190,7 +211,7 @@ body{
 .dash1{
     position: relative;
     width: 95vw;
-    background: rgb(255, 255, 255);
+    background: rgba(255, 255, 255, 0.863);
     height: 95vh;
     border-radius: 20px;
 }
@@ -215,6 +236,11 @@ body{
     gap: 10px;
     height: 400px;
     padding: 20px;
+}
+.dash1 .detailss{
+    display: flex;
+    justify-content: center;
+    width: 70%;
 }
 .main_body legend{
     margin-left: 20px;
@@ -270,6 +296,10 @@ body{
 .buttons a:nth-child(1){
     margin-bottom: 160px;
     width: 90%;
+}
+.invoice a:nth-child(1){
+    margin-top: 170px;
+    width: 20%;
 }
 .aside2{
     max-height: 470px;
@@ -467,6 +497,7 @@ body{
     color: red;
     background: red;
 }
+
 .yellow{
     color: yellow;
     background: yellow;
@@ -518,3 +549,78 @@ body{
     height: 0px;
     color: red;
 }  */
+.details{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 30px;
+}
+.line{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid black;
+    margin-bottom: 20px;
+
+}
+.line label{
+    font-weight: 600;
+}
+.line span{
+    font-weight: 500;
+}
+.available{
+    color: green;
+}
+.unavailable{
+    color: red;
+}
+.paravailable{
+    color: yellow;
+}
+.one{
+    display: grid;
+    grid-template-columns: 30% 70%;
+    margin-bottom: 10px;
+}
+.special{
+    display: grid;
+    grid-template-columns: 30% 46% 20%;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.special a{
+    text-align: center;
+    cursor: pointer;
+    background: crimson;
+    border: none;
+    color: white;
+    font-weight: 500;
+    border-radius: 20px;
+    font-size: 15px;
+    text-decoration: none;
+}
+.special button:active{
+    transform: scale(0.9);
+}
+.one label{
+    font-weight: 600;
+    text-transform: capitalize;
+}
+.one input{
+    text-transform: capitalize;
+    outline: none;
+    padding-left: 10px;
+}
+.room_sub{
+    margin-left: 90px;
+    margin-right: 90px;
+    background: crimson;
+    outline: none;
+    border: none;
+    padding: 10px 20px 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    color: white;
+    font-weight: 600;
+}

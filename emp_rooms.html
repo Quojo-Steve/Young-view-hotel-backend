@@ -7,19 +7,21 @@
     <title>Young View Hotel</title>
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="./images/icons/hotel_star_40px.png" type="image/x-icon">
+    <script src="./app.js" defer></script>
 </head>
-<body>
+<body class="body2">
     <div class="container dash">
         <h1>Rooms</h1>
-        <div class="logout">
+        <div class="logout1">
             <div class="iden">
                 <img src="./images/icons/people_60px.png" alt="">
                 <p>Elisabeth</p>
             </div>
-            <a href="#">Logout</a>
+            <a href="./emp_dashboard.html"><img src="./images/icons/back_arrow_64px.png" alt=""></a>
         </div>
+
         <div class="filter">
-            <select name="filter">
+            <select name="filter" id="select" onchange="getSelectedValue();">
                 <option value="all">All</option>
                 <option value="red">Red</option>
                 <option value="yellow">Yellow</option>
@@ -30,77 +32,62 @@
         </div>
 
         <div class="boxes">
-            <div class="each emp">
+            <div class="each emp r o">
                 <a href="./emp_room.html">Room1</a>
                 <span class="color red"></span>
                 <p class="type">Ordinary</p>
             </div>
-            <div class="each emp">
+            <div class="each emp y o">
                 <a href="./emp_room.html">Room2</a>
                 <span class="color yellow"></span>
                 <p class="type">Ordinary</p>
             </div>
-            <div class="each emp">
+            <div class="each emp g e">
                 <a href="./emp_room.html">Room3</a>
                 <span class="color green"></span>
                 <p class="type">Executive</p>
             </div>
-            <div class="each emp">
+            <div class="each emp r o">
                 <a href="./emp_room.html">Room1</a>
                 <span class="color red"></span>
                 <p class="type">Ordinary</p>
             </div>
-            <div class="each emp">
+            <div class="each emp y o">
                 <a href="./emp_room.html">Room2</a>
                 <span class="color yellow"></span>
                 <p class="type">Ordinary</p>
             </div>
-            <div class="each emp">
+            <div class="each emp g e">
                 <a href="./emp_room.html">Room3</a>
                 <span class="color green"></span>
                 <p class="type">Executive</p>
             </div>
-            <div class="each emp">
+            <div class="each emp r o">
                 <a href="./emp_room.html">Room1</a>
                 <span class="color red"></span>
                 <p class="type">Ordinary</p>
             </div>
-            <div class="each emp">
+            <div class="each emp y o">
                 <a href="./emp_room.html">Room2</a>
                 <span class="color yellow"></span>
                 <p class="type">Ordinary</p>
             </div>
-            <div class="each emp">
+            <div class="each emp g e">
                 <a href="./emp_room.html">Room3</a>
                 <span class="color green"></span>
                 <p class="type">Executive</p>
             </div>
-            <div class="each emp">
+            <div class="each emp r o">
                 <a href="./emp_room.html">Room1</a>
                 <span class="color red"></span>
                 <p class="type">Ordinary</p>
             </div>
-            <div class="each emp">
+            <div class="each emp y o">
                 <a href="./emp_room.html">Room2</a>
                 <span class="color yellow"></span>
                 <p class="type">Ordinary</p>
             </div>
-            <div class="each emp">
-                <a href="./emp_room.html">Room3</a>
-                <span class="color green"></span>
-                <p class="type">Executive</p>
-            </div>
-            <div class="each emp">
-                <a href="./emp_room.html">Room1</a>
-                <span class="color red"></span>
-                <p class="type">Ordinary</p>
-            </div>
-            <div class="each emp">
-                <a href="./emp_room.html">Room2</a>
-                <span class="color yellow"></span>
-                <p class="type">Ordinary</p>
-            </div>
-            <div class="each emp">
+            <div class="each emp g e">
                 <a href="./emp_room.html">Room3</a>
                 <span class="color green"></span>
                 <p class="type">Executive</p>
