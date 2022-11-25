@@ -624,3 +624,88 @@ input{
     color: white;
     font-weight: 600;
 }
+.first{
+    color: crimson;
+    font-weight: 500;
+}
+.error-txt{
+    color: #721c24;
+    background: #f5c6cb;
+    padding: 8px 10px;
+    text-align: center;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #f5c6cb;
+}
+/* Sign up code */
+.form2{
+    padding: 25px 30px;
+}
+.form2 .head{
+    display: grid;
+    grid-template-columns: 20% 80%;
+    border-bottom: 1px solid #e6e6e6;
+}
+.form2 a img{
+    width: 50px;
+    height: 50px;
+}
+.form2 header{
+    text-align: center;
+    font-size: 25px;
+    font-weight: 600;
+    
+    padding-bottom: 10px;
+}
+.form2 form{
+    margin: 20px 0;
+}
+.form2 form .name-details{
+    display: flex;
+}
+form .name-details .field:first-child{
+    margin-right: 10px;
+}
+form .name-details .field:last-child{
+    margin-left: 10px;
+}
+.form2 form .field i{
+    position: absolute;
+    right: 15px;
+    color: #ccc;
+    top: 70%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+.form2 form .field{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+.form2  form .field label{
+    margin-bottom: 2px;
+}
+.form2 form .field input{
+    outline: none;
+}
+.form2 form .input input{
+    height: 40px;
+    width: 100%;
+    font-size: 16px;
+    padding: 0 10px;
+    border: 1px solid crimson;
+    border-radius: 5px;
+}
+.form2 form .button input{
+    margin-top: 13px;
+    height: 45px;
+    border: none;
+    font-size: 17px;
+    font-weight: 400;
+    background: crimson;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
