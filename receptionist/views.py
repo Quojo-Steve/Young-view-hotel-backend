@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.models import auth, User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from .models import Room
 
 # Create your views here.
 
@@ -73,3 +74,14 @@ def emp_dashboard(request):
 def logout(request):
     auth.logout(request)
     return redirect('./')
+
+@login_required(login_url = './emp_login')
+def emp_rooms(request):
+    all_rooms = Room.objects.all()
+    return render(request, 'emp_rooms.html', {'all_rooms': all_rooms})
+
+def emp_room(request, pk):
+    room = Room.objects.get(id = pk)
+    print(room)
+    return render(request, 'emp_room.html', {'room': room})
+    

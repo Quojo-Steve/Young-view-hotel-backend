@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,97 +6,79 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Young View Hotel</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="./images/icons/hotel_star_40px.png" type="image/x-icon">
-    <script src="./app.js" defer></script>
+    <link rel="stylesheet" href={% static "style.css" %}>
+    <link rel="shortcut icon" href={% static "images/icons/hotel_star_40px.png" %} type="image/x-icon">
+    
 </head>
 <body class="body2">
     <div class="container dash">
         <h1>Rooms</h1>
         <div class="logout1">
             <div class="iden">
-                <img src="./images/icons/people_60px.png" alt="">
-                <p>Elisabeth</p>
+                <img src={% static  "./images/icons/people_60px.png" %} alt="">
+                {% if user.is_authenticated %}
+                <p>{{user.username}}</p>
+                {% endif %}
             </div>
-            <a href="./emp_dashboard.html"><img src="./images/icons/back_arrow_64px.png" alt=""></a>
+            <a href="./emp_dashboard"><img src={% static "./images/icons/back_arrow_64px.png" %} alt=""></a>
         </div>
 
         <div class="filter">
             <select name="filter" id="select" onchange="getSelectedValue();">
                 <option value="all">All</option>
                 <option value="red">Red</option>
-                <option value="yellow">Yellow</option>
                 <option value="green">Green</option>
                 <option value="ordinary">Ordinary</option>
+                <option value="standard">Standard</option>
                 <option value="executive">Executive</option>
             </select>
         </div>
 
         <div class="boxes">
+            {% for room in all_rooms %}
+            {% if room.availability is False and room.grade == 'Ordinary' %}
             <div class="each emp r o">
-                <a href="./emp_room.html">Room1</a>
+                <a href="./emp_room?room_id={{room.name}}">{{room.name}}</a>
                 <span class="color red"></span>
-                <p class="type">Ordinary</p>
+                <p class="type">{{room.grade}}</p>
             </div>
-            <div class="each emp y o">
-                <a href="./emp_room.html">Room2</a>
-                <span class="color yellow"></span>
-                <p class="type">Ordinary</p>
-            </div>
-            <div class="each emp g e">
-                <a href="./emp_room.html">Room3</a>
-                <span class="color green"></span>
-                <p class="type">Executive</p>
-            </div>
-            <div class="each emp r o">
-                <a href="./emp_room.html">Room1</a>
+            {% elif room.availability is False and room.grade == 'Standard' %}
+            <div class="each emp r s">
+                <a href="./emp_room.html">{{room.name}}</a>
                 <span class="color red"></span>
-                <p class="type">Ordinary</p>
+                <p class="type">{{room.grade}}</p>
             </div>
-            <div class="each emp y o">
-                <a href="./emp_room.html">Room2</a>
-                <span class="color yellow"></span>
-                <p class="type">Ordinary</p>
-            </div>
-            <div class="each emp g e">
-                <a href="./emp_room.html">Room3</a>
-                <span class="color green"></span>
-                <p class="type">Executive</p>
-            </div>
-            <div class="each emp r o">
-                <a href="./emp_room.html">Room1</a>
+            {% elif room.availability is False and room.grade == 'Executive' %}
+            <div class="each emp r e">
+                <a href="./emp_room.html">{{room.name}}</a>
                 <span class="color red"></span>
-                <p class="type">Ordinary</p>
+                <p class="type">{{room.grade}}</p>
             </div>
-            <div class="each emp y o">
-                <a href="./emp_room.html">Room2</a>
-                <span class="color yellow"></span>
-                <p class="type">Ordinary</p>
-            </div>
+            {% elif room.availability is True and room.grade == 'Executive' %}
             <div class="each emp g e">
-                <a href="./emp_room.html">Room3</a>
+                <a href="./emp_room.html">{{room.name}}</a>
                 <span class="color green"></span>
-                <p class="type">Executive</p>
+                <p class="type">{{room.grade}}</p>
             </div>
-            <div class="each emp r o">
-                <a href="./emp_room.html">Room1</a>
-                <span class="color red"></span>
-                <p class="type">Ordinary</p>
-            </div>
-            <div class="each emp y o">
-                <a href="./emp_room.html">Room2</a>
-                <span class="color yellow"></span>
-                <p class="type">Ordinary</p>
-            </div>
-            <div class="each emp g e">
-                <a href="./emp_room.html">Room3</a>
+            {% elif room.availability is True and room.grade == 'Standard' %}
+            <div class="each emp g s">
+                <a href="./emp_room.html">{{room.name}}</a>
                 <span class="color green"></span>
-                <p class="type">Executive</p>
+                <p class="type">{{room.grade}}</p>
             </div>
+            {% elif room.availability is True and room.grade == 'Ordinary' %}
+            <div class="each emp g o">
+                <a href="./emp_room.html">{{room.name}}</a>
+                <span class="color green"></span>
+                <p class="type">{{room.grade}}</p>
+            </div>
+            {% endif %}
+            {% endfor %}
+            
             
         </div>
     </div>
     
-
+    <script src={% static "app.js" %}></script>
 </body>
 </html>
