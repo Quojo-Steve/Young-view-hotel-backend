@@ -3,11 +3,15 @@ from django.contrib import messages
 from django.contrib.auth.models import auth, User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Room
+from .models import Room, Booking
+import random
+import string
 
 # Create your views here.
 
 def index(request):
+    booking_id = ''.join(random.choice(string.ascii_letters) for i in range(10))
+    print(booking_id)
     return render(request, 'index.html')
 
 def emp_login(request):
@@ -80,8 +84,41 @@ def emp_rooms(request):
     all_rooms = Room.objects.all()
     return render(request, 'emp_rooms.html', {'all_rooms': all_rooms})
 
+@login_required(login_url = './emp_login')
 def emp_room(request, pk):
-    room = Room.objects.get(id = pk)
-    print(room)
+    room = Room.objects.get(name= pk)
+    if request.method == 'POST':
+        # if room.availability is False:
+        #     messages.info(request, "This room is taken")
+        #     return redirect('.', pk= room.name)
+        guest_name = request.POST['gname']
+        room_name = request.POST['rname']
+        guest_no = request.POST['guest_no']
+        adate = request.POST['adate']
+        ddate = request.POST['ddate']
+        pnum = request.POST['pnum']
+        cards = request.POST['cards']
+        idnum = request.POST['idnum']
+        paid = request.POST['paid']
+        price = request.POST['price']
+        booking_id = ''.join(random.choice(string.ascii_letters) for i in range(10))
+        
+        
+        room.availability = False
+        room.next_booked_date = adate
+        room.next_free_date = ddate
+        room.save()
+        print(room.availability)
+        
+        booking = Booking.objects.create(room_name=room, booking_id=booking_id, guest_name=guest_name, no_of_guests=guest_no, arrival=adate, departure=ddate, phone_number=pnum, id_type=cards, id_number=idnum, amount_paid=paid, price=price)
+        booking.save
+        
+        return redirect('../emp_dashboard')
+        
+        
     return render(request, 'emp_room.html', {'room': room})
+
+def emp_booking(request):
+    booking_id = ''.join(random.choice(string.ascii_letters) for i in range(6))
+    print(booking_id)
     

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,47 +6,53 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Young View Hotel</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="./images/icons/hotel_star_40px.png" type="image/x-icon">
-    <script src="./app.js" defer></script>
+    <link rel="stylesheet" href={% static "style.css" %}>
+    <link rel="shortcut icon" href={% static "images/icons/hotel_star_40px.png" %} type="image/x-icon">
+    
 </head>
 <body class="body1">
     <div class="container dash1">
-        <h2>Room 1</h2>
+        <h2>{{room.name}}</h2>
         <div class="logout1">
             <div class="iden">
-                <img src="./images/icons/people_60px.png" alt="">
-                <p>Elisabeth</p>
+                <img src={% static  "./images/icons/people_60px.png" %} alt="">
+                {% if user.is_authenticated %}
+                <p>{{user.username}}</p>
+                {% endif %}
             </div>
-            <a href="./emp_rooms.html"><img src="./images/icons/back_arrow_64px.png" alt=""></a>
+            <a href="../emp_rooms"><img src={% static "./images/icons/back_arrow_64px.png" %} alt=""></a>
         </div>
-
+        {% for message in messages %}
+            <div class="error-txt">{{ message }}</div>
+        {% endfor %}
         <div class="main_body">
             <aside class="aside1">
                 <fieldset>
-                    <legend>Room 1</legend>
+                    <legend>Room detail</legend>
                     <div class="details">
                         <div class="line">
                             <label for="">Room Name ~</label>
-                            <span>Room 1</span>
+                            <span>{{room.name}}</span>
                         </div>
                         <div class="line">
-                            <label for="">Room Size ~</label>
-                            <span>Big</span>
+                            <label for="">Room Capacity ~</label>
+                            <span>{{room.capacity}}</span>
                         </div>
                         <div class="line">
                             <label for="">Room Type ~</label>
-                            <span>Ordinary</span>
+                            <span>{{room.grade}}</span>
                         </div>
+                        {% if room.availability is True %}
                         <div class="line">
                             <label for="">Room Availabilty ~</label>
                             <span class="available">Available</span>
                         </div>
-                        <!-- for unavailable -->
-                        <!-- <div class="line">
+                        {% else %}
+                        <div class="line">
                             <label for="">Room Availabilty ~</label>
-                            <span class="unavailable">Available</span>
-                        </div> -->
+                            <span class="unavailable">Unavailable</span>
+                        </div>
+                        {% endif %}
 
                         <!-- for partial available -->
                         <!-- <div class="line">
@@ -54,15 +61,15 @@
                         </div> -->
                         <div class="line">
                             <label for="">Room Price (per night) ~</label>
-                            <span>Ghc 150</span>
+                            <span>Ghc {{room.price}}</span>
                         </div>
-                        <div class="line">
+                        <!-- <div class="line">
                             <label for="">Last booked date ~</label>
                             <span>6th May 2020</span>
-                        </div>
+                        </div> -->
                         <div class="line">
                             <label for="">Next booked date ~</label>
-                            <span>30th May 2020</span>
+                            <span>{{room.next_booked_date}}</span>
                         </div>
                     </div>
             </aside>
@@ -71,46 +78,48 @@
                 <fieldset>
                     <legend>Book Room</legend>
                     
-                    <form action="" class="details">
+                    <form method="post" class="details">
+                        {% csrf_token %}
                         <div class="one">
                             <label for="">Name</label>
-                            <input type="text">
+                            <input type="text" name="gname">
+                            <input type="text" hidden value="{{room.name}}" name="rname">
                         </div>
                         <div class="one">
                             <label for="">Guests</label>
-                            <input type="number">
+                            <input type="number" name="guest_no">
                         </div>
                         <div class="one">
-                            <label for="">Arival </label>
-                            <input type="date">
+                            <label for="">Arrival </label>
+                            <input type="date" name="adate">
                         </div>
                         <div class="one">
                             <label for="">Departure </label>
-                            <input type="date">
+                            <input type="date" name="ddate">
                         </div>
                         <div class="one">
                             <label for="">Phone number </label>
-                            <input type="tel">
+                            <input type="tel" name="pnum">
                         </div>
                         <div class="one">
                             <label for="">id type</label>
-                            <select name="" id="">
-                                <option value="">Ghana Card</option>
-                                <option value="">Driver's License</option>
-                                <option value="">Voter's Id</option>
+                            <select name="cards" id="">
+                                <option value="Ghana Card" >Ghana Card</option>
+                                <option value="Driver's License">Driver's License</option>
+                                <option value="Voter's Id">Voter's Id</option>
                             </select>
                         </div>
                         <div class="one">
                             <label for="">Id number </label>
-                            <input type="text">
+                            <input type="text" name="idnum">
                         </div>
                         <div class="one">
-                            <label for="">Address </label>
-                            <input type="text">
+                            <label for="">Amount Paid</label>
+                            <input type="text" name="paid">
                         </div>
                         <div class="one">
                             <label for="">Price </label>
-                            <input type="text">
+                            <input type="text" name="price">
                         </div>
                         <input type="submit" value="Submit" class="room_sub">
                     </form>
@@ -120,6 +129,7 @@
         
     </div>
     
+    <script src="./app.js"></script>
 
 </body>
 </html>

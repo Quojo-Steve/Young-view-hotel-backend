@@ -38,37 +38,37 @@
             {% for room in all_rooms %}
             {% if room.availability is False and room.grade == 'Ordinary' %}
             <div class="each emp r o">
-                <a href="./emp_room?room_id={{room.name}}">{{room.name}}</a>
+                <a href="./emp_room/{{room.name}}">{{room.name}}</a>
                 <span class="color red"></span>
                 <p class="type">{{room.grade}}</p>
             </div>
             {% elif room.availability is False and room.grade == 'Standard' %}
             <div class="each emp r s">
-                <a href="./emp_room.html">{{room.name}}</a>
+                <a href="./emp_room/{{room.name}}">{{room.name}}</a>
                 <span class="color red"></span>
                 <p class="type">{{room.grade}}</p>
             </div>
             {% elif room.availability is False and room.grade == 'Executive' %}
             <div class="each emp r e">
-                <a href="./emp_room.html">{{room.name}}</a>
+                <a href="./emp_room/{{room.name}}">{{room.name}}</a>
                 <span class="color red"></span>
                 <p class="type">{{room.grade}}</p>
             </div>
             {% elif room.availability is True and room.grade == 'Executive' %}
             <div class="each emp g e">
-                <a href="./emp_room.html">{{room.name}}</a>
+                <a href="./emp_room/{{room.name}}">{{room.name}}</a>
                 <span class="color green"></span>
                 <p class="type">{{room.grade}}</p>
             </div>
             {% elif room.availability is True and room.grade == 'Standard' %}
             <div class="each emp g s">
-                <a href="./emp_room.html">{{room.name}}</a>
+                <a href="./emp_room/{{room.name}}">{{room.name}}</a>
                 <span class="color green"></span>
                 <p class="type">{{room.grade}}</p>
             </div>
             {% elif room.availability is True and room.grade == 'Ordinary' %}
             <div class="each emp g o">
-                <a href="./emp_room.html">{{room.name}}</a>
+                <a href="./emp_room/{{room.name}}">{{room.name}}</a>
                 <span class="color green"></span>
                 <p class="type">{{room.grade}}</p>
             </div>
