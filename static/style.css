@@ -49,6 +49,9 @@ input{
     margin-bottom: 40px;
     text-shadow: 3px 5px 2px rgba(0,0,0,0.15);
 }
+.container .h1{
+    margin-bottom: -10px;
+}
 .container .boxes{
     display: flex;
     justify-content: space-evenly;
@@ -630,12 +633,12 @@ input{
 }
 .error-txt{
     color: #721c24;
-    background: #f5c6cb;
+    background: rgba(248, 175, 148, 0.432);
     padding: 8px 10px;
     text-align: center;
     border-radius: 5px;
     margin-bottom: 10px;
-    border: 1px solid #f5c6cb;
+    /* border: 1px solid #f5c6cb; */
 }
 /* Sign up code */
 .form2{
@@ -708,4 +711,25 @@ form .name-details .field:last-child{
     border-radius: 5px;
     cursor: pointer;
 }
-
+.sel{
+    outline: none;
+    height: 40px;
+    width: 100%;
+    font-size: 16px;
+    padding: 0 10px;
+    border: 1px solid crimson;
+    border-radius: 5px;
+    background: none;
+}
+.book{
+    padding: 10px 30px;
+    text-align: center;
+    cursor: pointer;
+    background: crimson;
+    border: none;
+    color: white;
+    font-weight: 500;
+    border-radius: 20px;
+    font-size: 15px;
+    text-decoration: none;
+}

@@ -77,52 +77,51 @@
             <aside class="aside2">
                 <fieldset>
                     <legend>Book Room</legend>
-                    
+                    {% if room.availability is False %}
                     <form method="post" class="details">
-                        {% csrf_token %}
+                        <div class="one">
+                            <label for="">Booking ID</label>
+                            <span>{{booker.booking_id}}</span>
+                        </div>
                         <div class="one">
                             <label for="">Name</label>
-                            <input type="text" name="gname">
-                            <input type="text" hidden value="{{room.name}}" name="rname">
+                            <span>{{booker.guest_name}}</span>
                         </div>
                         <div class="one">
                             <label for="">Guests</label>
-                            <input type="number" name="guest_no">
+                            <span>{{booker.no_of_guests}}</span>
                         </div>
                         <div class="one">
                             <label for="">Arrival </label>
-                            <input type="date" name="adate">
+                            <span>{{booker.arrival}}</span>
                         </div>
                         <div class="one">
                             <label for="">Departure </label>
-                            <input type="date" name="ddate">
+                            <span>{{booker.departure}}</span>
                         </div>
                         <div class="one">
                             <label for="">Phone number </label>
-                            <input type="tel" name="pnum">
-                        </div>
-                        <div class="one">
-                            <label for="">id type</label>
-                            <select name="cards" id="">
-                                <option value="Ghana Card" >Ghana Card</option>
-                                <option value="Driver's License">Driver's License</option>
-                                <option value="Voter's Id">Voter's Id</option>
-                            </select>
+                            <span>{{booker.phone_number}}</span>
                         </div>
                         <div class="one">
                             <label for="">Id number </label>
-                            <input type="text" name="idnum">
+                            <span>{{booker.id_number}}</span>
                         </div>
                         <div class="one">
                             <label for="">Amount Paid</label>
-                            <input type="text" name="paid">
+                            <span>{{booker.amount_paid}}</span>
                         </div>
                         <div class="one">
                             <label for="">Price </label>
-                            <input type="text" name="price">
+                            <span>{{booker.price}}</span>
                         </div>
-                        <input type="submit" value="Submit" class="room_sub">
+                        <!-- <input type="submit" value="Submit" class="room_sub"> -->
                     </form>
+                    {% else %}
+                    <br><br>
+                    <br><br>
+                    <a href="../emp_book_room" target="_blank" class="book">Book a Room</a>
+                    {% endif %}
                 </fieldset>
             </aside>
         </div>

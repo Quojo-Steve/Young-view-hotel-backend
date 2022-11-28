@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Young View Hotel</title>
+    <link rel="stylesheet" href={% static "style.css" %}>
+    <link rel="shortcut icon" href={% static "images/icons/hotel_star_40px.png" %} type="image/x-icon">
+</head>
+<body class="body3">
+    <div class="container1">
+        <section class="form2">
+            <div class="head">
+                <header>BookRoom</header>
+            </div>
+            
+            <form method="post">
+                {% csrf_token %}
+                {% for message in messages %}
+                <div class="error-txt">{{ message }}</div>
+                {% endfor %}
+                <div class="name-details">
+                    <div class="field input">
+                        <label for="">Room Name</label>
+                        <input type="text" name="rname">
+                    </div>
+                    <div class="field input">
+                        <label for="">Name</label>
+                        <input type="text" name="gname">
+                    </div>
+                    
+                </div>
+                <div class="name-details">
+                    <div class="field input">
+                        <label for="">Arrival </label>
+                        <input type="date" name="adate">
+                    </div>
+                    <div class="field input">
+                        <label for="">Departure </label>
+                        <input type="date" name="ddate">
+                    </div>
+                </div>
+                
+                <div class="field input">
+                    <label for="">Phone number </label>
+                    <input type="tel" name="pnum">
+                </div>
+                <div class="name-details">
+                    <div class="field input">
+                        <label for="">Id type</label>
+                        <select name="cards" id="" class="sel">
+                            <option value="Ghana Card" >Ghana Card</option>
+                            <option value="Driver's License">Driver's License</option>
+                            <option value="Voter's Id">Voter's Id</option>
+                        </select>
+                    </div>
+                    <div class="field input">
+                        <label for="">Id number </label>
+                        <input type="text" name="idnum">
+                    </div>
+                </div>
+                <div class="name-details">
+                    <div class="field input">
+                        <label for="">Guests</label>
+                            <input type="number" name="guest_no">
+                    </div>
+                    <div class="field input">
+                        <label for="">Price </label>
+                        <input type="text" name="price">
+                    </div>
+                </div>
+                
+                <div class="field button">
+                    <input type="submit" value="Book Room">
+                </div>
+                
+            </form>
+        </section>
+    </div>
+
+    <script src="./assets/signup.js"></script>
+</body>
+</html>

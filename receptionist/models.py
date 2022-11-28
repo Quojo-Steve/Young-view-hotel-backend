@@ -35,7 +35,7 @@ class Booking(models.Model):
     )
     id_type = models.CharField(max_length=20, choices=idtypes)
     id_number = models.CharField(max_length=30)
-    amount_paid = models.FloatField()
+    amount_paid = models.FloatField(null=True)
     price = models.FloatField()
     
     def __str__(self):

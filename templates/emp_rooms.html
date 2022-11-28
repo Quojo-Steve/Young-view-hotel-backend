@@ -12,7 +12,7 @@
 </head>
 <body class="body2">
     <div class="container dash">
-        <h1>Rooms</h1>
+        <h1 class="h1">Rooms</h1>
         <div class="logout1">
             <div class="iden">
                 <img src={% static  "./images/icons/people_60px.png" %} alt="">
@@ -22,6 +22,8 @@
             </div>
             <a href="./emp_dashboard"><img src={% static "./images/icons/back_arrow_64px.png" %} alt=""></a>
         </div>
+
+        <a href="./emp_book_room" target="_blank" class="book">Book Room</a>
 
         <div class="filter">
             <select name="filter" id="select" onchange="getSelectedValue();">
