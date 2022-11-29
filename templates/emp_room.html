@@ -79,6 +79,7 @@
                     <legend>Book Room</legend>
                     {% if room.availability is False %}
                     <form method="post" class="details">
+                        {% csrf_token %}
                         <div class="one">
                             <label for="">Booking ID</label>
                             <span>{{booker.booking_id}}</span>
@@ -115,7 +116,7 @@
                             <label for="">Price </label>
                             <span>{{booker.price}}</span>
                         </div>
-                        <!-- <input type="submit" value="Submit" class="room_sub"> -->
+                        <input type="submit" value="Checked Out" class="room_sub">
                     </form>
                     {% else %}
                     <br><br>
@@ -128,7 +129,6 @@
         
     </div>
     
-    <script src="./app.js"></script>
 
 </body>
 </html>

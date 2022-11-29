@@ -37,6 +37,26 @@ class Booking(models.Model):
     id_number = models.CharField(max_length=30)
     amount_paid = models.FloatField(null=True)
     price = models.FloatField()
+    active = models.BooleanField(default=True)
     
     def __str__(self):
         return self.room_name.name +" has been booked by " +self.guest_name
+    
+class Cars(models.Model):
+    name = models.CharField(max_length=50, primary_key=True)
+    color = models.CharField(max_length=20)
+    registration = models.CharField(max_length=10)
+    type_of_car = models.CharField(max_length=50)
+    
+    def __str__(self):
+        return self.type_of_car
+    
+class Car_Rental(models.Model):
+    booking = models.ForeignKey(Booking, on_delete= models.SET_NULL, null=True)
+    car_name = models.ForeignKey(Cars, on_delete= models.SET_NULL, null=True)
+    rent_time = models.DateField()
+    return_time = models.DateField()
+    price = models.FloatField(null=True)
+    
+    def __str__(self):
+        return self.booking.guest_name +" has rented " +self.car_name.name

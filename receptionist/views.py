@@ -3,15 +3,33 @@ from django.contrib import messages
 from django.contrib.auth.models import auth, User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Room, Booking
+from .models import Room, Booking, Cars, Car_Rental
 import random
 import string
-
+from datetime import date, timedelta
 # Create your views here.
 
 def index(request):
-    booking_id = ''.join(random.choice(string.ascii_letters) for i in range(10))
-    print(booking_id)
+    all_rooms = Room.objects.all()
+    today = date.today()
+
+    
+    for each_room in all_rooms:
+        check = Booking.objects.filter(room_name=each_room.name).first()
+        
+        if check is not None and check.active is True: 
+            print( each_room.name + str(daterange(check.arrival, check.departure)))
+            dates = daterange(check.arrival, check.departure)
+            
+            for datey in dates:
+                if datey == today:
+                    each_room.availability = False
+                    each_room.save()
+                    print('done')
+                    break 
+                else:
+                    each_room.availability = True
+                    each_room.save()
     return render(request, 'index.html')
 
 def emp_login(request):
@@ -36,14 +54,15 @@ def emp_login(request):
 def emp_otp(request):
     if request.method == 'POST':
         otp = request.POST['otp']
-        if User.objects.filter(first_name = otp).exists():
-            fake = User.objects.filter(first_name = otp)
+        if User.objects.filter(username = otp).exists():
+            fake = User.objects.filter(username = otp).first()
             fake.delete()
             return redirect('./emp_register')
         else:
             messages.info(request, 'No such OTP')
             return redirect('./emp_otp')
     return render(request, 'emp_otp.html')
+
 
 def emp_register(request):
     if request.method == 'POST':
@@ -73,15 +92,65 @@ def emp_register(request):
 
 @login_required(login_url = './emp_login')
 def emp_dashboard(request):
+    all_rooms = Room.objects.all()
+    today = date.today()
+
+    
+    for each_room in all_rooms:
+        check = Booking.objects.filter(room_name=each_room.name).first()
+        
+        if check is not None and check.active is True: 
+            print( each_room.name + str(daterange(check.arrival, check.departure)))
+            dates = daterange(check.arrival, check.departure)
+            last_date = dates[len(dates) -1]
+            print(last_date)
+            
+            for datey in dates:
+                if datey == today:
+                    each_room.availability = False
+                    each_room.save()
+                    print('done')
+                    break 
+                elif last_date < today:
+                    each_room.availability = True
+                    each_room.save()
+                    check.active = False
+                    check.save()
+                else:
+                    each_room.availability = True
+                    each_room.save()
     return render(request, 'emp_dashboard.html')
 
+@login_required(login_url = './emp_login')
 def logout(request):
     auth.logout(request)
     return redirect('./')
 
+def daterange(start, end):
+    return [start + timedelta(n) for n in range(int((end - start).days))]
+
 @login_required(login_url = './emp_login')
 def emp_rooms(request):
     all_rooms = Room.objects.all()
+    today = date.today()
+
+    for each_room in all_rooms:
+        check = Booking.objects.filter(room_name=each_room.name).first()
+        
+        if check is not None and check.active is True: 
+            print( each_room.name + str(daterange(check.arrival, check.departure)))
+            dates = daterange(check.arrival, check.departure)
+            
+            for datey in dates:
+                if datey == today:
+                    each_room.availability = False
+                    each_room.save()
+                    print('done')
+                    break 
+                else:
+                    each_room.availability = True
+                    each_room.save()
+               
     return render(request, 'emp_rooms.html', {'all_rooms': all_rooms})
 
 @login_required(login_url = './emp_login')
@@ -90,11 +159,41 @@ def emp_room(request, pk):
     room_name = room.name
     booker = Booking.objects.filter(room_name=room_name).first()
     
+    if request.method == 'POST':
+        booker.active = False
+        room.availability = True
+        
+        booker.save()
+        room.save()
+        
+        return redirect('../emp_rooms') 
     
     return render(request, 'emp_room.html', {'room': room, 'booker':booker})
 
+@login_required(login_url = './emp_login')
 def emp_booking(request):
 
+    all_rooms = Room.objects.all()
+    today = date.today()
+
+    
+    for each_room in all_rooms:
+        check = Booking.objects.filter(room_name=each_room.name).first()
+        
+        if check is not None and check.active is True: 
+            print( each_room.name + str(daterange(check.arrival, check.departure)))
+            dates = daterange(check.arrival, check.departure)
+            
+            for datey in dates:
+                if datey == today:
+                    each_room.availability = False
+                    each_room.save()
+                    print('done')
+                    break 
+                else:
+                    each_room.availability = True
+                    each_room.save()
+    
     if request.method == 'POST':
         guest_name = request.POST['gname']
         room_name = request.POST['rname']
@@ -130,8 +229,21 @@ def emp_booking(request):
     
     return render(request, 'emp_book_room.html')
     
-    
+@login_required(login_url = './emp_login')
 def congrats(request):
     return render(request, 'emp_booking_sucess.html')
         
+@login_required(login_url = './emp_login')
+def checked_out(request):
+    return render(request, 'emp_dashboard.html')
+
+@login_required(login_url = './emp_login')
+def emp_cars(request):
+    cars = Cars.objects.all()
     
+    return render(request, 'emp_cars.html', {'cars': cars})
+
+@login_required(login_url = './emp_login')
+def emp_car(request, pk):
+    cars = Cars.objects.get(name= pk)
+    return render(request, "emp_car.html", {"cars":cars})

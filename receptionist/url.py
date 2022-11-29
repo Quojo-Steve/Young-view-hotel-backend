@@ -13,6 +13,9 @@ urlpatterns = [
     path('logout', views.logout),
     path('emp_rooms', views.emp_rooms),
     path('emp_room/<str:pk>', views.emp_room),
+    path('emp_car/<str:pk>', views.emp_car),
     path('emp_book_room', views.emp_booking),
-    path('congrats', views.congrats)
+    path('congrats', views.congrats),
+    path('checked_out', views.checked_out),
+    path('emp_cars', views.emp_cars)
 ]
