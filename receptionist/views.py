@@ -207,6 +207,8 @@ def emp_booking(request):
         price = request.POST['price']
         booking_id = ''.join(random.choice(string.ascii_letters) for i in range(10))
         
+        room_name = room_name.upper()
+        
         if Room.objects.filter(name=room_name).exists():
             room = Room.objects.filter(name=room_name).first()
         else:
