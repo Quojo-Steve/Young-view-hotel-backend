@@ -17,5 +17,7 @@ urlpatterns = [
     path('emp_book_room', views.emp_booking),
     path('congrats', views.congrats),
     path('checked_out', views.checked_out),
-    path('emp_cars', views.emp_cars)
+    path('emp_cars', views.emp_cars),
+    path('emp_invoice', views.emp_invoice),
+    path('invoice_details/<str:pk>', views.invoice_details),
 ]

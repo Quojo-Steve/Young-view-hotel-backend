@@ -181,7 +181,6 @@ def emp_booking(request):
         check = Booking.objects.filter(room_name=each_room.name).first()
         
         if check is not None and check.active is True: 
-            print( each_room.name + str(daterange(check.arrival, check.departure)))
             dates = daterange(check.arrival, check.departure)
             
             for datey in dates:
@@ -249,3 +248,41 @@ def emp_cars(request):
 def emp_car(request, pk):
     cars = Cars.objects.get(name= pk)
     return render(request, "emp_car.html", {"cars":cars})
+
+@login_required(login_url = './emp_login')
+def emp_invoice(request):
+    all_bookings = Booking.objects.all()
+    all_booking = []
+    search_booking = []
+    today = date.today()
+    
+    if request.method == 'POST':
+        searched = request.POST['search']
+        result = Booking.objects.filter(booking_id=searched).first()
+        
+        if result.active is True:
+            
+            dates = daterange(result.arrival, result.departure) 
+        
+            for datey in dates:
+                if datey == today:
+                    search_booking.append(result)
+                    
+                    return render(request, 'emp_invoice.html', {"search_booking":search_booking})
+
+    for each in all_bookings:
+        if each.active is True:
+            
+            dates = daterange(each.arrival, each.departure) 
+        
+            for datey in dates:
+                if datey == today:
+                    all_booking.append(each) 
+    
+    
+    return render(request, 'emp_invoice.html', {"all_booking":all_booking})
+
+def invoice_details(request, pk):
+    booking = Booking.objects.get(booking_id=pk)
+    return render(request, 'emp_invoice_details.html', {'booking':booking})
+    
