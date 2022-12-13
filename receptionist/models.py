@@ -13,12 +13,22 @@ class Room(models.Model):
     grade = models.CharField(max_length=100, choices=sizes)
     price = models.IntegerField()
     availability = models.BooleanField(default=True)
-    next_booked_date = models.DateField(null=True)
-    next_free_date = models.DateField(null=True)
+    next_booked_date = models.DateField(null=True, blank=True)
+    next_free_date = models.DateField(null=True, blank=True)
     
     def __str__(self):
         return self.name
     
+class Collective_Room(models.Model):
+    name = models.CharField(max_length=100, primary_key=True)
+    price = models.FloatField()
+    description = models.TextField(max_length=200)
+    img = models.ImageField(upload_to= 'room_images')
+
+    def __str__(self):
+        return self.name
+         
+            
     
 class Booking(models.Model):
     room_name = models.ForeignKey(Room, on_delete= models.SET_NULL, null=True)

@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Young View</title>
+    <link rel="stylesheet" href={% static "userlogin_style.css" %}>
+</head>
+<body>
+    <div class="main">
+        <input type="checkbox" id="chk" aria-hidden="true">
+
+        <div class="signup">
+            <form method="post">
+                {% csrf_token %}
+                {% for message in messages %}
+                <div class="error-txt">{{ message }}</div>
+                {% endfor %}
+                <label for="chk" aria-hidden="true">Sign Up</label>
+                <input type="text" name="fname" placeholder="First name" required="" value=" ">
+                <input type="text" name="lname" placeholder="Last name" required="" value=" ">
+                <input type="email" name="email" placeholder="email" required="" value=" ">
+                <input type="password" name="pswd" placeholder="Password" required="" value=" ">
+                <input type="submit" value="Sign Up" class="button">
+            </form>
+        </div>
+
+        <div class="login">
+            <form method="post">
+                {% csrf_token %}
+                <label for="chk" aria-hidden="true">Login</label>
+                <input type="email" name="email2" placeholder="email" required="">
+                <input type="password" name="pswd2" placeholder="Password" required="">
+                <input type="submit" value="Login" class="button">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
