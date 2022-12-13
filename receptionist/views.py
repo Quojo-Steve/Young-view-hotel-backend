@@ -111,14 +111,14 @@ def emp_dashboard(request):
                     each_room.save()
                     print('done')
                     break 
-                elif last_date < today:
+                else:
+                    each_room.availability = True
+                    each_room.save()
+                if last_date < today:
                     each_room.availability = True
                     each_room.save()
                     check.active = False
                     check.save()
-                else:
-                    each_room.availability = True
-                    each_room.save()
     return render(request, 'emp_dashboard.html')
 
 @login_required(login_url = './emp_login')
