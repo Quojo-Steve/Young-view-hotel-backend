@@ -48,6 +48,7 @@ class Booking(models.Model):
     amount_paid = models.FloatField(null=True)
     price = models.FloatField()
     active = models.BooleanField(default=True)
+    expired = models.BooleanField(default=True)
     
     def __str__(self):
         return self.room_name.name +" has been booked by " +self.guest_name

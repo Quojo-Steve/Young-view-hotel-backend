@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from receptionist.models import Collective_Room, Room, Booking
 from receptionist.views import daterange
+from datetime import datetime
 
 # Create your views here.
 def index(request):
@@ -76,7 +77,7 @@ def standardRoomBooking(request):
 
 def ordinaryRoomBooking(request):
     rooms = Room.objects.filter(grade='Ordinary')
-    booking = Booking.objects.filter()
+    books = Booking.objects.filter(expired=False)
     if request.method == 'POST':
         arrival = request.POST['arrival']
         departure = request.POST['dep']
@@ -84,19 +85,57 @@ def ordinaryRoomBooking(request):
         number = request.POST['num']
         price = request.POST['price']
         
-        for room in rooms:
-            books = Booking.objects.filter(room_name=room.grade)
-            for book in books:
-                dates = daterange(book.arrival, book.departure)
-                new_dates = daterange(arrival, departure)
+        chosen = []
+        # for room in rooms:
+        #     books = Booking.objects.filter(room_name=room.grade)
+        #     for book in books:
+        #         dates = daterange(book.arrival, book.departure)
+        #         new_dates = daterange(arrival, departure)
                 
-                for datey in dates:
-                    for new_date in new_dates:
-                        if new_date == datey:
-                            break
-                        else:
-                            print('yah')
+        #         for datey in dates:
+        #             for new_date in new_dates:
+        #                 if new_date == datey:
+        #                     break
+        #                 else:
+        #                     print('yah')
             
+        for room in rooms:
+            if room.name == 'K1':
+                for book in books:
+                    
+                    if book.room_name.name == room.name:
+                        chosen.append(book)    
+            elif room.name == 'K2':
+                for book in books:
+                    
+                    if book.room_name.name == room.name:
+                        chosen.append(book)   
+            elif room.name == 'K3':
+                for book in books:
+                    
+                    if book.room_name.name == room.name:
+                        chosen.append(book)   
+            elif room.name == 'K4':
+                for book in books:
+                   
+                    if book.room_name.name == room.name:
+                        chosen.append(book)   
+            elif room.name == 'K5':
+                for book in books:
+                    
+                    if book.room_name.name == room.name:
+                        chosen.append(book)   
+        
+        for chose in chosen:
+            dates = daterange(chose.arrival, chose.departure)
+            # arrival_date = datetime.strptime(arrival, '%d/%m/%y')
+            # departure_date = datetime.strptime(departure, '%d/%m/%y')
+            print(arrival)
+            print(departure)
+            new_date = daterange(arrival, departure)
+            print(new_date)      
+        
+                
     return render(request, 'user_book_room_ord.html')
 
 def executiveRoomBooking(request):
