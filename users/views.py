@@ -69,6 +69,7 @@ def booking(request, pk):
         return redirect('/standard')
     return render(request, 'user_book_room.html')
 
+
 def standardRoomBooking(request):
     
     rooms = Room.objects.filter(grade='Standard')
@@ -76,64 +77,80 @@ def standardRoomBooking(request):
     return render(request, 'user_book_room_stan.html')
 
 def ordinaryRoomBooking(request):
-    rooms = Room.objects.filter(grade='Ordinary')
-    books = Booking.objects.filter(expired=False)
+    # rooms = Room.objects.filter(grade='Ordinary')
     if request.method == 'POST':
         arrival = request.POST['arrival']
         departure = request.POST['dep']
         guest = request.POST['guest']
         number = request.POST['num']
         price = request.POST['price']
+        room_chosen = request.POST['rooms']
         
-        chosen = []
-        # for room in rooms:
-        #     books = Booking.objects.filter(room_name=room.grade)
-        #     for book in books:
-        #         dates = daterange(book.arrival, book.departure)
-        #         new_dates = daterange(arrival, departure)
-                
-        #         for datey in dates:
-        #             for new_date in new_dates:
-        #                 if new_date == datey:
-        #                     break
-        #                 else:
-        #                     print('yah')
+        books = Booking.objects.filter(room_name=room_chosen, expired=False)
+        room = Room.objects.get(name=room_chosen)
+        
+        for book in books:
+            dates = daterange(book.arrival, book.departure)
+            print(dates)
             
-        for room in rooms:
-            if room.name == 'K1':
-                for book in books:
+            arrival_date = datetime.strptime(arrival, '%Y-%m-%d')
+            departure_date = datetime.strptime(departure, '%Y-%m-%d')
+            
+            new_dates = daterange(arrival_date, departure_date)
+            print(new_dates)
+            for dat in dates:
+                for new_date in new_dates:
+                    if dat == new_date:
+                        print('bad')
+                        print(dat)
+                        print(new_date)
+                        break
+                    else:
+                        print(dat)
+                        print(new_date)
+                        print('good')
+           
+        # for room in rooms:
+        #     if room.name == 'K1':
+                
+        #         for book in books:
                     
-                    if book.room_name.name == room.name:
-                        chosen.append(book)    
-            elif room.name == 'K2':
-                for book in books:
+        #             if book.room_name.name == room.name and book.expired is False:
+        #                 chosen.append(book)    
+        #     elif room.name == 'K2':
+                
+        #         for book in books:
                     
-                    if book.room_name.name == room.name:
-                        chosen.append(book)   
-            elif room.name == 'K3':
-                for book in books:
+        #             if book.room_name.name == room.name and book.expired is False:
+        #                 chosen.append(book)    
+        #     elif room.name == 'K3':
+               
+        #         for book in books:
                     
-                    if book.room_name.name == room.name:
-                        chosen.append(book)   
-            elif room.name == 'K4':
-                for book in books:
-                   
-                    if book.room_name.name == room.name:
-                        chosen.append(book)   
-            elif room.name == 'K5':
-                for book in books:
+        #             if book.room_name.name == room.name and book.expired is False:
+        #                 chosen.append(book)     
+        #     elif room.name == 'K4':
+               
+        #         for book in books:
                     
-                    if book.room_name.name == room.name:
-                        chosen.append(book)   
+        #             if book.room_name.name == room.name and book.expired is False:
+        #                 chosen.append(book)    
+        #     elif room.name == 'K5':
+                
+        #         for book in books:
+                    
+        #             if book.room_name.name == room.name and book.expired is False:
+        #                 chosen.append(book)    
         
-        for chose in chosen:
-            dates = daterange(chose.arrival, chose.departure)
-            # arrival_date = datetime.strptime(arrival, '%d/%m/%y')
-            # departure_date = datetime.strptime(departure, '%d/%m/%y')
-            print(arrival)
-            print(departure)
-            new_date = daterange(arrival, departure)
-            print(new_date)      
+        # for chose in chosen:
+        #     dates = daterange(chose.arrival, chose.departure)
+        #     arrival_date = datetime.strptime(arrival, '%Y-%m-%d')
+        #     departure_date = datetime.strptime(departure, '%Y-%m-%d')
+        #     new_date = daterange(arrival_date, departure_date)
+        #     print(chose.room_name.name)
+        #     print(departure_date)
+                  
+        #     print(new_date)
         
                 
     return render(request, 'user_book_room_ord.html')
