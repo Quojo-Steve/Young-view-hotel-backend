@@ -5,7 +5,10 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from receptionist.models import Collective_Room, Room, Booking
 from receptionist.views import daterange
-from datetime import datetime
+from datetime import date
+import datetime
+import random
+import string
 
 # Create your views here.
 def index(request):
@@ -76,6 +79,7 @@ def standardRoomBooking(request):
     print(rooms)
     return render(request, 'user_book_room_stan.html')
 
+@login_required(login_url='login')
 def ordinaryRoomBooking(request):
     # rooms = Room.objects.filter(grade='Ordinary')
     if request.method == 'POST':
@@ -89,26 +93,166 @@ def ordinaryRoomBooking(request):
         books = Booking.objects.filter(room_name=room_chosen, expired=False)
         room = Room.objects.get(name=room_chosen)
         
+        arrival_date = arrival.split('-')
+        departure_date = departure.split('-')
+            
+        a_date = datetime.date(int(arrival_date[0]), int(arrival_date[1]), int(arrival_date[2]))
+        d_date = datetime.date(int(departure_date[0]), int(departure_date[1]), int(departure_date[2]))
+        
         for book in books:
             dates = daterange(book.arrival, book.departure)
             print(dates)
             
-            arrival_date = datetime.strptime(arrival, '%Y-%m-%d')
-            departure_date = datetime.strptime(departure, '%Y-%m-%d')
-            
-            new_dates = daterange(arrival_date, departure_date)
+            new_dates = daterange(a_date, d_date)
             print(new_dates)
-            for dat in dates:
-                for new_date in new_dates:
-                    if dat == new_date:
-                        print('bad')
-                        print(dat)
-                        print(new_date)
+            i=1
+            stop = False
+            while i == 1:    
+                for dat in dates:
+                    for new_date in new_dates:
+                        if dat == new_date:
+                            print('bad')
+                            i=0
+                            messages.info(request, str(room_chosen) +' is not available on the selected dates')
+                            return redirect('/ordinary')
+                        else:
+                            i=10
+                            stop = True
+                    if i == 0:
                         break
-                    else:
-                        print(dat)
-                        print(new_date)
-                        print('good')
+                    
+            if dates is None:
+                print('ohno')
+                stop = True
+            
+            if stop:
+                booking_id = ''.join(random.choice(string.ascii_letters) for i in range(10))
+                print(booking_id)
+                new_booking = Booking.objects.create(room_name=room, guest_name=request.user, arrival=arrival, departure=departure, price=price, expired=False, no_of_guests=guest, booking_id=booking_id, phone_number=number)
+                new_booking.save
+                return render(request, 'user_generate_qr.html')
+        
+        # for room in rooms:
+        
+            # arrival_date = arrival.split('-')
+            # departure_date = departure.split('-')
+            
+            # a_date = datetime.date(int(arrival_date[0]), int(arrival_date[1]), int(arrival_date[2]))
+            # d_date = datetime.date(int(departure_date[0]), int(departure_date[1]), int(departure_date[2]))    
+            
+        #     if room.name == 'K1':
+        #         books = Booking.objects.filter(room_name=room.name, expired=False)
+        #         if len(books) > 0:
+        #             for book in books:
+        #                 dates = daterange(book.arrival, book.departure)
+        #                 print(dates)
+                        
+        #                 new_dates = daterange(a_date, d_date)
+        #                 print(new_dates)
+        #                 for dat in dates:
+        #                     for new_date in new_dates:
+        #                         if dat == new_date:
+        #                             print('bad')
+        #                             break
+        #                         else:
+        #                             new_booking = Booking.objects.create(room_name=room.name, guest_name=User.username, arrival=arrival, departure=departure, price=price, expired=False)
+        #                             new_booking.save
+        #                             return render(request, 'user_generate_qr.html')    
+        #         else:
+        #             new_booking = Booking.objects.create(room_name=room.name, guest_name=User.username, arrival=arrival, departure=departure, price=price, expired=False)
+        #             new_booking.save
+        #             return render(request, 'user_generate_qr.html')
+        #     if room.name == 'K2':
+        #         books = Booking.objects.filter(room_name=room.name, expired=False)
+        #         if len(books) > 0:
+        #             for book in books:
+        #                 dates = daterange(book.arrival, book.departure)
+        #                 print(dates)
+                        
+        #                 new_dates = daterange(a_date, d_date)
+        #                 print(new_dates)
+        #                 for dat in dates:
+        #                     for new_date in new_dates:
+        #                         if dat == new_date:
+        #                             print('bad')
+        #                             break
+        #                         else:
+        #                             new_booking = Booking.objects.create(room_name=room.name, guest_name=User.username, arrival=arrival, departure=departure, price=price, expired=False)
+        #                             new_booking.save
+        #                             return render(request, 'user_generate_qr.html')    
+        #         else:
+        #             new_booking = Booking.objects.create(room_name=room.name, guest_name=User.username, arrival=arrival, departure=departure, price=price, expired=False)
+        #             new_booking.save
+        #             return render(request, 'user_generate_qr.html')
+        #     if room.name == 'K3':
+        #         books = Booking.objects.filter(room_name=room.name, expired=False)
+        #         if len(books) > 0:
+        #             for book in books:
+        #                 dates = daterange(book.arrival, book.departure)
+        #                 print(dates)
+                        
+        #                 new_dates = daterange(a_date, d_date)
+        #                 print(new_dates)
+        #                 for dat in dates:
+        #                     for new_date in new_dates:
+        #                         if dat == new_date:
+        #                             print('bad')
+        #                             break
+        #                         else:
+        #                             new_booking = Booking.objects.create(room_name=room.name, guest_name=User.username, arrival=arrival, departure=departure, price=price, expired=False)
+        #                             new_booking.save
+        #                             return render(request, 'user_generate_qr.html')    
+        #         else:
+        #             new_booking = Booking.objects.create(room_name=room.name, guest_name=User.username, arrival=arrival, departure=departure, price=price, expired=False)
+        #             new_booking.save
+        #             return render(request, 'user_generate_qr.html')
+        #     if room.name == 'K4':
+        #         books = Booking.objects.filter(room_name=room.name, expired=False)
+        #         if len(books) > 0:
+        #             for book in books:
+        #                 dates = daterange(book.arrival, book.departure)
+        #                 print(dates)
+                        
+        #                 new_dates = daterange(a_date, d_date)
+        #                 print(new_dates)
+        #                 for dat in dates:
+        #                     for new_date in new_dates:
+        #                         if dat == new_date:
+        #                             print('bad')
+        #                             break
+        #                         else:
+        #                             new_booking = Booking.objects.create(room_name=room.name, guest_name=User.username, arrival=arrival, departure=departure, price=price, expired=False)
+        #                             new_booking.save
+        #                             return render(request, 'user_generate_qr.html')    
+        #         else:
+        #             new_booking = Booking.objects.create(room_name=room.name, guest_name=User.username, arrival=arrival, departure=departure, price=price, expired=False)
+        #             new_booking.save
+        #             return render(request, 'user_generate_qr.html')
+        #     if room.name == 'K5':
+        #         books = Booking.objects.filter(room_name=room.name, expired=False)
+        #         if len(books) > 0:
+        #             for book in books:
+        #                 dates = daterange(book.arrival, book.departure)
+        #                 print(dates)
+                        
+        #                 new_dates = daterange(a_date, d_date)
+        #                 print(new_dates)
+        #                 for dat in dates:
+        #                     for new_date in new_dates:
+        #                         if dat == new_date:
+        #                             print('bad')
+        #                             break
+        #                         else:
+        #                             new_booking = Booking.objects.create(room_name=room.name, guest_name=User.username, arrival=arrival, departure=departure, price=price, expired=False)
+        #                             new_booking.save
+        #                             return render(request, 'user_generate_qr.html')    
+        #         else:
+        #             new_booking = Booking.objects.create(room_name=room.name, guest_name=User.username, arrival=arrival, departure=departure, price=price, expired=False)
+        #             new_booking.save
+        #             return render(request, 'user_generate_qr.html')
+        #     else:
+        #             print('naa')
+            
            
         # for room in rooms:
         #     if room.name == 'K1':

@@ -224,7 +224,7 @@ def emp_booking(request):
         room.next_free_date = ddate
         room.save()
         
-        booked = Booking.objects.create(room_name=room, booking_id=booking_id, guest_name=guest_name, no_of_guests= guest_no, arrival= adate, departure= ddate, phone_number= pnum, id_type= cards, id_number= idnum, price= price)
+        booked = Booking.objects.create(room_name=room, booking_id=booking_id, guest_name=guest_name, no_of_guests= guest_no, arrival= adate, departure= ddate, phone_number= pnum, id_type= cards, id_number= idnum, price= price, expired=False)
         booked.save
         return redirect('./congrats')
     
