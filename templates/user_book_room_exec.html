@@ -18,25 +18,34 @@
                 <div class="error-txt">{{ message }}</div>
                 {% endfor %}
             <div class="book-form">
+                <div class="form-item">
+                    <select name="rooms" id="rooms">
+                        <option value="L6">L6</option>
+                        <option value="L7">L7</option>
+                        <option value="L8">L8</option>
+                        <option value="L9">L9</option>
+                        <option value="L10">L10</option>
+                    </select>
+                </div>
                 <div class = "form-item">
                     <label for = "checkin-date">Check In Date: </label>
-                    <input type = "date" id = "chekin-date">
+                    <input type = "date" id = "chekin-date" name="arrival">
                 </div>
                 <div class = "form-item">
                     <label for = "checkout-date">Check Out Date: </label>
-                    <input type = "date" id = "chekout-date">
+                    <input type = "date" id = "chekout-date" name="dep">
                 </div>
                 <div class = "form-item">
                     <label for = "guest">Guests: </label>
-                    <input type = "number" min = "1" value = "1" id = "adult">
+                    <input type = "number" min = "1" value = "1" id = "adult" name="guest">
                 </div>
                 <div class = "form-item">
                     <label for = "rooms">Telephone Number: </label>
-                    <input type = "text" maxlength = "10" id = "rooms">
+                    <input type = "text" maxlength = "10" id = "rooms" name="num">
                 </div>
                 <div class = "form-item">
                     <label for = "rooms">Price: </label>
-                    <input type = "number" maxlength = "10" id = "price" onkeypress="return false;">
+                    <input type = "number" maxlength = "10" id = "price" onkeypress="return false;" name="price">
                 </div>
             </div>
             

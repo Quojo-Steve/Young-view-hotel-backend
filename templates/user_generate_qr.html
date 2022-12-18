@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./qr_css.css">
+    <link rel="stylesheet" href={% static "./qr_css.css" %}>
 </head>
 <body>
     <div class="wrapper">
@@ -16,7 +17,7 @@
             <input type="text" value="1" hidden>
             <div class="details">
                 <p>Name: </p> 
-                <p>Ashala As</p>
+                <p>{{name}}</p>
             </div>
             <div class="details">
                 <p>Arrival Date: </p> 

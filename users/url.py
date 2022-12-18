@@ -13,4 +13,5 @@ urlpatterns = [
     path('ordinary', views.ordinaryRoomBooking),
     path('executive', views.executiveRoomBooking),
     path('standard', views.standardRoomBooking),
+    path('generate', views.generate),
 ]
