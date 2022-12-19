@@ -17,23 +17,27 @@
             <input type="text" value="1" hidden>
             <div class="details">
                 <p>Name: </p> 
-                <p>{{name}}</p>
+                <p>{{name.guest_name}}</p>
             </div>
             <div class="details">
                 <p>Arrival Date: </p> 
-                <p>Ashala As</p>
+                <p>{{name.arrival}}</p>
+            </div>
+            <div class="details">
+                <p>Departure Date: </p> 
+                <p>{{name.departure}}</p>
             </div>
             <div class="details">
                 <p>Guests: </p> 
-                <p>Ashala As</p>
+                <p>{{name.no_of_guests}}</p>
             </div>
             <div class="details">
                 <p>Price: </p> 
-                <p>Ashala As</p>
+                <p>{{name.price}}</p>
             </div>
             <div class="details">
                 <p>Tel No: </p> 
-                <p>Ashala As</p>
+                <p>{{name.phone_number}}</p>
             </div>
             
             <button>Generate Receipt</button>
@@ -46,6 +50,6 @@
     </div>
 
 
-    <script src="./qr_script.js"></script>
+    <script src={% static "./qr_script.js" %}></script>
 </body>
 </html>

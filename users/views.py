@@ -123,14 +123,13 @@ def standardRoomBooking(request):
                     print(booking_id)
                     new_booking = Booking.objects.create(room_name=room, guest_name=request.user, arrival=arrival, departure=departure, price=price, expired=False, no_of_guests=guest, booking_id=booking_id, phone_number=number)
                     new_booking.save
-                    return redirect('/generate', name=request.user)
-                
+                    return render(request, 'user_generate_qr.html', {'name':new_booking})
         else:
             booking_id = ''.join(random.choice(string.ascii_letters) for i in range(10))
             print(booking_id)
             new_booking = Booking.objects.create(room_name=room, guest_name=request.user, arrival=arrival, departure=departure, price=price, expired=False, no_of_guests=guest, booking_id=booking_id, phone_number=number)
             new_booking.save
-            return redirect('/generate', name=request.user)
+            return render(request, 'user_generate_qr.html', {'name':new_booking})
         
     return render(request, 'user_book_room_stan.html')
 
@@ -185,14 +184,13 @@ def ordinaryRoomBooking(request):
                     print(booking_id)
                     new_booking = Booking.objects.create(room_name=room, guest_name=request.user, arrival=arrival, departure=departure, price=price, expired=False, no_of_guests=guest, booking_id=booking_id, phone_number=number)
                     new_booking.save
-                    return redirect('/generate', name=request.user)
-                
+                    return render(request, 'user_generate_qr.html', {'name':new_booking})                
         else:
             booking_id = ''.join(random.choice(string.ascii_letters) for i in range(10))
             print(booking_id)
             new_booking = Booking.objects.create(room_name=room, guest_name=request.user, arrival=arrival, departure=departure, price=price, expired=False, no_of_guests=guest, booking_id=booking_id, phone_number=number)
             new_booking.save
-            return redirect('/generate', name=request.user)
+            return render(request, 'user_generate_qr.html', {'name':new_booking})
         
     return render(request, 'user_book_room_ord.html')
 
@@ -246,14 +244,14 @@ def executiveRoomBooking(request):
                     print(booking_id)
                     new_booking = Booking.objects.create(room_name=room, guest_name=request.user, arrival=arrival, departure=departure, price=price, expired=False, no_of_guests=guest, booking_id=booking_id, phone_number=number)
                     new_booking.save
-                    return redirect('/generate', name=request.user)
+                    return render(request, 'user_generate_qr.html', {'name':new_booking})
                 
         else:
             booking_id = ''.join(random.choice(string.ascii_letters) for i in range(10))
             print(booking_id)
             new_booking = Booking.objects.create(room_name=room, guest_name=request.user, arrival=arrival, departure=departure, price=price, expired=False, no_of_guests=guest, booking_id=booking_id, phone_number=number)
             new_booking.save
-            return redirect('/generate', name=request.user)
+            return render(request, 'user_generate_qr.html', {'name':new_booking})
         
     return render(request, 'user_book_room_exec.html')
 
